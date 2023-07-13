@@ -16,7 +16,7 @@ const checkWorkingHours = (req, res, next) => {
   if (day >= 1 && day <= 5 && hour >= 9 && hour < 17) {
     next(); // Proceed to the next middleware/route handler
   } else {
-    res.status(403).send('The web application is only available during working hours (Monday to Friday, from 9 to 17).');
+    res.redirect('/hors');
   }
 };
 
@@ -32,6 +32,10 @@ app.get('/services', checkWorkingHours, (req, res) => {
 
 app.get('/contact', checkWorkingHours, (req, res) => {
   res.render('contact', { page: 'Contact us', stylesheets: res.locals.stylesheets });
+});
+
+app.get('/hors', (req, res) => {
+  res.render('hors', { page: 'Hors Service', stylesheets: res.locals.stylesheets });
 });
 
 const PORT = 3000;
